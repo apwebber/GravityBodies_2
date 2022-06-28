@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://World.gd" type="Script" id=1]
+[ext_resource path="res://Body.tscn" type="PackedScene" id=2]
+[ext_resource path="res://camera.gd" type="Script" id=3]
+[ext_resource path="res://ceiling.jpg" type="Texture" id=4]
+
+[sub_resource type="BoxShape" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 4 )
+uv1_scale = Vector3( 10, 10, 10 )
+
+[node name="World" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0372238, 9.53674e-07, 0.00483131 )
+script = ExtResource( 1 )
+body_scene = ExtResource( 2 )
+n_bodies = 100
+gravity = 0.0
+
+[node name="StaticBody" type="StaticBody" parent="."]
+transform = Transform( 1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0, 0, 0 )
+collision_mask = 7
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 1 )
+
+[node name="CSGBox" type="CSGBox" parent="StaticBody/CollisionShape"]
+material = SubResource( 2 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.933436, 0.358743, 0, -0.358743, 0.933436, 1.52588e-05, 110.348, 181.193 )
+far = 5708.2
+script = ExtResource( 3 )
+sensitivity = 0.727
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.965641, -0.254553, -0.0523541, 0, -0.201454, 0.979498, -0.259881, -0.945843, -0.194532, 0, 171.521, 137.271 )
+shadow_enabled = true
+directional_shadow_max_distance = 292.9
